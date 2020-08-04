@@ -1,0 +1,36 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+      args:
+        PASSWORD: $PASSWORD
+    ports:
+      - 80:80
+      # - 443:443
+    restart: always
+    environment:
+      PASSWORD: $PASSWORD
+    # SERVER_CRT: ${SERVER_CRT:-./certs/dev.crt}
+    # SERVER_CRT_KEY: ${SERVER_CRT_KEY:-./certs/dev.key}
+    # CERT_FILENAME: ${CERT_FILENAME:-server.crt}
+    # CERT_KEY_FILENAME: ${CERT_KEY_FILENAME:-server.key}
+    volumes:
+      # - ./certs/certbot/www:/var/www/certbot
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      # - client-ssl_passphrase:/etc/keys/ssl_passphrase
+      # - ./certs/ca-chain.pem:/etc/nginx/ssl/ca-chain.cert.pem
+      # - ${SERVER_CRT:-./certs/dev.crt}:/etc/nginx/ssl/${CERT_FILENAME:-server.crt}
+      # - ${SERVER_CRT_KEY:-./certs/dev.key}:/etc/nginx/ssl/${CERT_KEY_FILENAME:-server.key}
+  # certbot:
+  #   image: certbot/certbot
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./certs/certbot/conf:/etc/letsencrypt
+  #     - ./certs/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

@@ -1,0 +1,11 @@
+FROM nginx:1.19-alpine-perl
+
+ARG PASSWORD
+
+ENV PASSWORD ${PASSWORD}
+
+RUN apk update && \
+  apk add -f apache2-utils && \
+  echo ${PASSWORD} | htpasswd -ci /etc/nginx/.htpasswd monitor && \
+  chmod 550 /etc/nginx/.htpasswd && \
+  chown nginx:nginx /etc/nginx/.htpasswd
