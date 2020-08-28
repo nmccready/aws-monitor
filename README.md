@@ -1,6 +1,6 @@
 # aws-monitor
 
-Use prometheus to monitor whatever. Pushing docker-compose setup to ECS via ecs-cli && fargate.
+Use [prometheus](https://prometheus.io/) to monitor whatever. Pushing docker-compose setup to ECS via ecs-cli && fargate.
 
 By default prometheus has no security so NGINX is put in front as a reverse proxy to be the Web APP basic security layer.
 
