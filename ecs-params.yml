@@ -13,8 +13,8 @@ task_definition:
 run_params:
   network_configuration:
     awsvpc_configuration:
-      subnets:
-        - subnet-2f32da59
-      security_groups:
-        - sg-0c7aaa09af0b32f4d
+      subnets: # TODO: Make env var
+        - subnet-2f32da59 # modify to your subnet
+      security_groups: # TODO: Make env var
+        - sg-0c7aaa09af0b32f4d # modify to your security group , should only have port 80 exposed public
       assign_public_ip: ENABLED
